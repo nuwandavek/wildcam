@@ -2,3 +2,4 @@
 */*.mp4
 *.log
 __pycache__/
+data/.DS_Store

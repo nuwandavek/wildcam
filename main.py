@@ -19,7 +19,7 @@ def get_snapshot():
     date_dir = Path(OUTPUT_DIR) / date_str
     date_dir.mkdir(parents=True, exist_ok=True)
 
-    out = date_dir / f"{time_str}.png"
+    out = date_dir / f"{time_str}.jpg"
 
     print(f"📸 Capturing snapshot at {now.strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print(f"📁 Saving to: {out}")
@@ -49,7 +49,8 @@ def get_snapshot():
         "ffmpeg",
         "-i", stream_url,
         "-frames:v", "1",
-        "-q:v", "2",
+        "-vf", "scale=960:540",
+        "-q:v", "5",
         "-y",
         str(out),
     ]
