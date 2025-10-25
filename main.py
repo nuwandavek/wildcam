@@ -49,7 +49,6 @@ def get_snapshot():
         "ffmpeg",
         "-i", stream_url,
         "-frames:v", "1",
-        "-vf", "scale=960:540",
         "-q:v", "5",
         "-y",
         str(out),
