@@ -1,0 +1,42 @@
+name: Capture Snapshot
+
+on:
+  schedule:
+    # Run at the start of every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        run: uv sync
+
+      - name: Run snapshot script
+        run: python main.py
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run: |
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add snapshot $(date -u +'%Y-%m-%d %H:00 UTC')"
+            git push
+          fi
