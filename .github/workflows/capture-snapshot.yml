@@ -24,7 +24,7 @@ jobs:
         run: uv sync
 
       - name: Run snapshot script
-        run: python main.py
+        run: uv run python main.py
 
       - name: Configure git
         run: |
