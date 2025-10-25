@@ -14,8 +14,7 @@ def get_snapshot():
 
     # Create directory structure: data/yyyy-mm-dd/
     date_str = now.strftime("%Y-%m-%d")
-    # time_str = now.strftime("%H_%M_%S")
-    time_str = now.strftime("%H_00_00")
+    time_str = now.strftime("%H_%M_%S")
 
     date_dir = Path(OUTPUT_DIR) / date_str
     date_dir.mkdir(parents=True, exist_ok=True)
